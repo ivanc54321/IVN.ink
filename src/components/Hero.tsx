@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import React, { useRef, useState, useEffect } from "react";
+import { CircularText } from "./CircularText";
 
 const WORDS = ["SCROLLING", "WEBSITE", "TEST"];
 
@@ -85,24 +86,25 @@ export function Hero() {
         </motion.p>
       </motion.div>
 
-      {/* Animated Scroll Down Indicator */}
+      {/* Decorative Text Path & Arrow */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center justify-center gap-2 cursor-pointer"
-        onClick={() => {
-          const step = window.innerHeight;
-          window.scrollBy({ top: step, behavior: 'smooth' });
-        }}
+        className="absolute bottom-12 md:bottom-24 right-12 md:right-24 z-20 hidden md:flex items-center justify-center"
       >
-        <span className="text-xs md:text-sm font-sans tracking-tight text-white uppercase">SCROLL DOWN</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-        >
-          <ChevronDown className="w-8 h-8 text-white stroke-[1]" />
-        </motion.div>
+        <CircularText text="SCROLL DOWN TO EXPLORE • MAGIC AWAITS • " radius={60} />
+        <ArrowDown className="absolute w-6 h-6 text-[#f27d26]" />
+      </motion.div>
+      
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="absolute bottom-12 z-20 w-full flex md:hidden justify-center items-center gap-4"
+      >
+        <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/50">Scroll</span>
+        <ArrowDown className="w-5 h-5 text-[#f27d26] animate-bounce" />
       </motion.div>
     </section>
   );

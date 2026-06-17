@@ -83,12 +83,6 @@ export function HorizontalScroll() {
   return (
     <section ref={containerRef} className="relative h-[400vh] bg-[#050505]">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#050505]">
-        {/* Horizontal Scroll Progress Bar */}
-        <motion.div 
-          className="absolute top-0 left-0 h-[2px] bg-[#f27d26] z-50 origin-left w-full"
-          style={{ scaleX: scrollYProgress }}
-        />
-
         {/* Decorative Grid Overlay for entire scroll area */}
         <div className="absolute inset-0 pointer-events-none grid grid-cols-6 h-full w-full opacity-[0.03] z-[5]">
           <div className="border-r border-white"></div>
