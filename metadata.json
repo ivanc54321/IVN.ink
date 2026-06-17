@@ -1,0 +1,8 @@
+{
+  "name": "Horizontal Parallax Scrolling",
+  "description": "Modern Horizontal Scrolling Page with Parallax, 3D effects, and text path animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
