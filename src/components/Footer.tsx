@@ -13,7 +13,7 @@ export function Footer() {
 
       <div className="max-w-4xl mx-auto relative z-10 text-white">
         <h2 className="text-5xl md:text-[8rem] font-sans font-black uppercase mb-8 tracking-tighter leading-none">
-          Keep <span className="text-[#f27d26]">Expanding</span>
+          <span className="text-gradient-white pr-4">Keep</span> <span className="text-[#f27d26]">Expanding</span>
         </h2>
         <p className="text-white/40 leading-relaxed italic font-serif text-lg max-w-xl mx-auto mb-16">
           This layout can seamlessly fit above or below any standard vertical sections, giving you complete flexibility in your design architecture.

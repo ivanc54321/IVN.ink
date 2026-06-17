@@ -57,7 +57,7 @@ export function Hero() {
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-6xl md:text-[8rem] lg:text-[10rem] font-sans font-black tracking-tighter uppercase leading-none mb-8 flex flex-col md:block"
         >
-          HORIZONTAL<br className="hidden md:block" />
+          <span className="text-gradient-white pb-2">HORIZONTAL</span><br className="hidden md:block" />
           <span className="text-[#f27d26] pl-0 md:pl-20 inline-flex overflow-hidden relative h-[1.1em] align-top md:align-text-bottom min-w-[200px] md:min-w-[500px]">
             <AnimatePresence mode="popLayout">
               <motion.span
