@@ -112,8 +112,8 @@ export function HorizontalScroll() {
                 <div className="order-1 md:order-2">
                    <RevealText>
                      <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">01 &mdash; PERSPECTIVE</span>
-                     <h2 className="text-5xl md:text-[5rem] lg:text-[6rem] font-black font-sans uppercase tracking-tighter leading-none mb-8">
-                       <span className="text-gradient-white pb-2 pr-2">Interactive</span> <br/> <span className="text-[#f27d26] pl-0 md:pl-20">Dimensions</span>
+                     <h2 className="text-5xl md:text-[5rem] lg:text-[6rem] font-black font-sans uppercase tracking-tighter text-white leading-none mb-8">
+                       Interactive <br/> <span className="text-[#f27d26] pl-0 md:pl-20">Dimensions</span>
                      </h2>
                    </RevealText>
                    <RevealText>
@@ -129,7 +129,7 @@ export function HorizontalScroll() {
           <div className="w-[100vw] h-full flex items-center justify-center p-8 shrink-0 relative bg-[#0a0a0a] border-r border-white/5">
              <div className="w-full max-w-7xl relative h-full flex text-center flex-col items-center justify-center z-10">
                 <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">02 &mdash; ROTATION</span>
-                <AutoChangingHeadings className="text-5xl md:text-[6rem] lg:text-[7rem] font-black font-sans uppercase tracking-tighter leading-none mb-12" />
+                <AutoChangingHeadings className="text-5xl md:text-[6rem] lg:text-[7rem] font-black font-sans uppercase tracking-tighter text-white leading-none mb-12" />
                 
                 {/* Parallax Rotating Elements in Background */}
                 <ParallaxImage 
@@ -164,8 +164,8 @@ export function HorizontalScroll() {
               <div className="z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
                  <RevealText>
                    <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">03 &mdash; VOLUME</span>
-                   <div className="text-6xl md:text-[9rem] lg:text-[11rem] font-sans font-black uppercase tracking-tighter leading-none mb-8 whitespace-nowrap">
-                     <span className="text-gradient-white pb-4 pr-4">Fluid Design</span>
+                   <div className="text-6xl md:text-[9rem] lg:text-[11rem] font-sans font-black uppercase tracking-tighter leading-none text-white mb-8 whitespace-nowrap">
+                     Fluid Design
                    </div>
                  </RevealText>
                  <div className="flex justify-end">
@@ -189,9 +189,7 @@ export function HorizontalScroll() {
 
                 <RevealText>
                   <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">04 &mdash; FINALE</span>
-                  <h2 className="text-5xl md:text-[6rem] lg:text-[8rem] font-black font-sans uppercase tracking-tighter mb-8 leading-none">
-                    <span className="text-gradient-white pb-4 pr-4">Ready for Limitless?</span>
-                  </h2>
+                  <h2 className="text-5xl md:text-[6rem] lg:text-[8rem] font-black font-sans uppercase tracking-tighter mb-8 leading-none">Ready for Limitless?</h2>
                 </RevealText>
                 <RevealText>
                   <p className="text-white/40 text-lg md:text-xl italic font-serif max-w-2xl mx-auto">

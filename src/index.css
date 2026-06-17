@@ -19,14 +19,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.text-gradient-white {
-  background-image: linear-gradient(to bottom, #ffffff 10%, #737373 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
 /* Hide scrollbar for clean look */
 ::-webkit-scrollbar {
   width: 8px;
