@@ -1,10 +1,21 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { ArrowDown } from "lucide-react";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { CircularText } from "./CircularText";
+
+const WORDS = ["SCROLLING", "WEBSITE", "TEST"];
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 1500);
+    return () => clearInterval(interval);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -45,10 +56,23 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-6xl md:text-[8rem] lg:text-[10rem] font-sans font-black tracking-tighter uppercase leading-none mb-8"
+          className="text-6xl md:text-[8rem] lg:text-[10rem] font-sans font-black tracking-tighter uppercase leading-none mb-8 flex flex-col md:block"
         >
           HORIZONTAL<br className="hidden md:block" />
-          <span className="text-[#f27d26] pl-0 md:pl-20">SCROLLING</span>
+          <span className="text-[#f27d26] pl-0 md:pl-20 inline-flex overflow-hidden relative h-[1.1em] align-top md:align-text-bottom min-w-[200px] md:min-w-[500px]">
+            <AnimatePresence mode="popLayout">
+              <motion.span
+                key={wordIndex}
+                initial={{ y: "100%" }}
+                animate={{ y: "0%" }}
+                exit={{ y: "-100%" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="block whitespace-nowrap"
+              >
+                {WORDS[wordIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
         </motion.h1>
 
         <motion.p
