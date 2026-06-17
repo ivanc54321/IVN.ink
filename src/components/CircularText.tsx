@@ -26,9 +26,9 @@ export function CircularText({ text, radius = 50 }: CircularTextProps) {
           id="circlePath"
           d="
             M 50, 50
-            m -50, 0
-            a 50,50 0 1,1 100,0
-            a 50,50 0 1,1 -100,0
+            m -38, 0
+            a 38,38 0 1,1 76,0
+            a 38,38 0 1,1 -76,0
           "
           fill="none"
           stroke="none"

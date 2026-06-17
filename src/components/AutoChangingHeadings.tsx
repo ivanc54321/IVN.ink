@@ -28,7 +28,7 @@ export function AutoChangingHeadings({ className }: { className?: string }) {
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 whitespace-nowrap"
+          className="absolute inset-0 whitespace-nowrap flex items-center justify-center w-full h-full"
         >
           {HEADINGS[index]}
         </motion.div>

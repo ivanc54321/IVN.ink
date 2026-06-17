@@ -56,10 +56,10 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-6xl md:text-[8rem] lg:text-[10rem] font-sans font-black tracking-tighter uppercase leading-none mb-8 flex flex-col md:block"
+          className="text-4xl sm:text-6xl md:text-[8rem] lg:text-[10rem] font-sans font-black tracking-tighter uppercase leading-[0.9] mb-8 block w-full"
         >
           HORIZONTAL<br className="hidden md:block" />
-          <span className="text-[#f27d26] pl-0 md:pl-20 inline-flex overflow-hidden relative h-[1.1em] align-top md:align-text-bottom min-w-[200px] md:min-w-[500px]">
+          <span className="text-[#f27d26] block overflow-hidden relative h-[1.15em] align-middle w-full">
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={wordIndex}
@@ -67,7 +67,7 @@ export function Hero() {
                 animate={{ y: "0%" }}
                 exit={{ y: "-100%" }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="block whitespace-nowrap"
+                className="absolute inset-0 whitespace-nowrap pl-0 md:pl-20 block h-full flex items-center"
               >
                 {WORDS[wordIndex]}
               </motion.span>

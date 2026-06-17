@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "motion/react";
+import { motion, useScroll, useTransform, useSpring, MotionValue, useMotionValueEvent } from "motion/react";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Image3D } from "./Image3D";
 import { AutoChangingHeadings } from "./AutoChangingHeadings";
+import { cn } from "../lib/utils";
 
 // Helper component for customized reveal animation inside horizontal context
 function RevealText({ children }: { children: React.ReactNode }) {
@@ -48,6 +49,7 @@ function ParallaxImage({
 
 export function HorizontalScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeScreen, setActiveScreen] = useState(0);
 
   // We are creating 4 horizontal screens, so 400vw width in total.
   // We need 400vh to scroll them naturally.
@@ -61,6 +63,12 @@ export function HorizontalScroll() {
   // Smooth the scroll slightly so the background translation isn't too jarring natively
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100, damping: 20, restDelta: 0.001
+  });
+
+  // Track scroll changes to highlight current active screen index
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const index = Math.max(0, Math.min(3, Math.round(latest * 3)));
+    setActiveScreen(index);
   });
 
   // 4 screens = 3 shifts (0 to -75% of a container that's 400vw wide)
@@ -106,7 +114,7 @@ export function HorizontalScroll() {
                 <div className="order-1 md:order-2">
                    <RevealText>
                      <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">01 &mdash; PERSPECTIVE</span>
-                     <h2 className="text-5xl md:text-[5rem] lg:text-[6rem] font-black font-sans uppercase tracking-tighter text-white leading-none mb-8">
+                     <h2 className="text-3xl sm:text-5xl md:text-[5rem] lg:text-[6rem] font-black font-sans uppercase tracking-tighter text-white leading-none mb-8">
                        Interactive <br/> <span className="text-[#f27d26] pl-0 md:pl-20">Dimensions</span>
                      </h2>
                    </RevealText>
@@ -123,7 +131,7 @@ export function HorizontalScroll() {
           <div className="w-[100vw] h-full flex items-center justify-center p-8 shrink-0 relative bg-[#0a0a0a] border-r border-white/5">
              <div className="w-full max-w-7xl relative h-full flex text-center flex-col items-center justify-center z-10">
                 <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">02 &mdash; ROTATION</span>
-                <AutoChangingHeadings className="text-5xl md:text-[6rem] lg:text-[7rem] font-black font-sans uppercase tracking-tighter text-white leading-none mb-12" />
+                <AutoChangingHeadings className="text-3xl sm:text-5xl md:text-[6rem] lg:text-[7rem] font-black font-sans uppercase tracking-tighter text-white leading-none mb-12" />
                 
                 {/* Parallax Rotating Elements in Background */}
                 <ParallaxImage 
@@ -158,7 +166,7 @@ export function HorizontalScroll() {
               <div className="z-10 w-full max-w-7xl mx-auto px-8 md:px-12">
                  <RevealText>
                    <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">03 &mdash; VOLUME</span>
-                   <div className="text-6xl md:text-[9rem] lg:text-[11rem] font-sans font-black uppercase tracking-tighter leading-none text-white mb-8 whitespace-nowrap">
+                   <div className="text-3xl sm:text-6xl md:text-[8rem] lg:text-[10rem] xl:text-[11rem] font-sans font-black uppercase tracking-tighter leading-none text-white mb-8 whitespace-nowrap overflow-hidden text-ellipsis">
                      Fluid Design
                    </div>
                  </RevealText>
@@ -183,10 +191,10 @@ export function HorizontalScroll() {
 
                 <RevealText>
                   <span className="text-[#f27d26] font-mono text-sm tracking-widest block mb-4 uppercase">04 &mdash; FINALE</span>
-                  <h2 className="text-5xl md:text-[6rem] lg:text-[8rem] font-black font-sans uppercase tracking-tighter mb-8 leading-none">Ready for Limitless?</h2>
+                  <h2 className="text-3xl sm:text-5xl md:text-[6rem] lg:text-[8rem] font-black font-sans uppercase tracking-tighter mb-8 leading-none">Ready for Limitless?</h2>
                 </RevealText>
                 <RevealText>
-                  <p className="text-white/40 text-lg md:text-xl italic font-serif max-w-2xl mx-auto">
+                  <p className="text-white/40 text-base md:text-xl italic font-serif max-w-2xl mx-auto">
                     The horizontal journey ends here, but the experience continues seamlessly as you scroll down back to standard view.
                   </p>
                 </RevealText>
@@ -194,31 +202,61 @@ export function HorizontalScroll() {
           </div>
         </motion.div>
 
-        {/* Floating Horizontal Navigation - Bold Theme */}
-        <div className="absolute bottom-8 w-full hidden md:flex justify-between items-end px-12 z-50 pointer-events-none">
-          <div className="flex flex-col items-start gap-4 pointer-events-auto">
-            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">Chapter Navigation</span>
-            <div className="flex gap-4">
-              <button onClick={() => scrollToScreen(0)} className="text-lg font-black tracking-tighter text-white/40 hover:text-white transition-colors">01</button>
-              <button onClick={() => scrollToScreen(1)} className="text-lg font-black tracking-tighter text-white/40 hover:text-white transition-colors">02</button>
-              <button onClick={() => scrollToScreen(2)} className="text-lg font-black tracking-tighter text-white/40 hover:text-white transition-colors">03</button>
-              <button onClick={() => scrollToScreen(3)} className="text-lg font-black tracking-tighter text-white/40 hover:text-white transition-colors">04</button>
+        {/* Floating Horizontal Navigation - Fully Responsive on Mobile & Desktop */}
+        <div className="absolute bottom-8 w-full flex justify-between items-end px-6 md:px-12 z-50 pointer-events-none">
+          <div className="flex flex-col items-start gap-2 md:gap-4 pointer-events-auto">
+            <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">Chapter Navigation</span>
+            <div className="flex gap-4 items-center">
+              {[0, 1, 2, 3].map((idx) => {
+                const label = `0${idx + 1}`;
+                const isActive = activeScreen === idx;
+                return (
+                  <button 
+                    key={idx}
+                    onClick={() => scrollToScreen(idx)} 
+                    style={{ textShadow: isActive ? '0 0 10px rgba(242, 125, 38, 0.4)' : 'none' }}
+                    className={cn(
+                      "text-base md:text-lg font-black tracking-tighter transition-all duration-300 relative py-1",
+                      isActive ? "text-[#f27d26] scale-110 font-black" : "text-white/40 hover:text-white"
+                    )}
+                  >
+                    {label}
+                    {isActive && (
+                      <motion.div 
+                        layoutId="activeHorizontalDot" 
+                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#f27d26]"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
           
-          <div className="flex flex-col items-end gap-2 pointer-events-auto">
-            <div className="flex gap-4">
+          <div className="flex flex-col items-end gap-2 pointer-events-auto shrink-0">
+            <div className="flex gap-2 md:gap-4">
               <button onClick={() => {
-                const step = window.innerHeight;
-                window.scrollBy({ top: -step, behavior: 'smooth' });
-              }} className="h-12 w-12 border border-white/10 flex items-center justify-center hover:bg-white/5 text-white transition-colors">
-                <ArrowLeft className="w-5 h-5" />
+                const current = activeScreen;
+                if (current > 0) scrollToScreen(current - 1);
+              }} className={cn(
+                "h-10 w-10 md:h-12 md:w-12 border flex items-center justify-center transition-all duration-300",
+                activeScreen === 0 
+                  ? "border-white/5 text-white/10 cursor-not-allowed" 
+                  : "border-white/10 hover:bg-white/5 text-white cursor-pointer"
+              )}>
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
               </button>
               <button onClick={() => {
-                const step = window.innerHeight;
-                window.scrollBy({ top: step, behavior: 'smooth' });
-              }} className="h-12 w-12 border border-[#f27d26] bg-[#f27d26] text-[#050505] flex items-center justify-center hover:bg-[#ff8a33] transition-colors">
-                <ArrowRight className="w-5 h-5" />
+                const current = activeScreen;
+                if (current < 3) scrollToScreen(current + 1);
+              }} className={cn(
+                "h-10 w-10 md:h-12 md:w-12 border flex items-center justify-center transition-all duration-300",
+                activeScreen === 3 
+                  ? "border-white/5 text-white/10 cursor-not-allowed bg-transparent" 
+                  : "border-[#f27d26] bg-[#f27d26] text-[#050505] hover:bg-[#ff8a33] cursor-pointer"
+              )}>
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             </div>
           </div>
